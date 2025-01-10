@@ -1,0 +1,76 @@
+# WeatherVane
+WeatherVane is a distributed weather data processing system that handles data ingestion, processing, and analysis through multiple microservices.
+
+
+## Prerequisites
+- Docker and Docker Compose
+- Python 3.8+
+- Redis
+- InfluxDB
+
+
+## Quick Start with Docker
+1. Clone the repository
+2. Build and start the services
+
+
+## Manual Setup
+1. Install dependencies
+2. Configure environment variables
+3. Start the services individually
+
+
+Terminal 1: Start Redis
+redis-server
+Terminal 2: Start InfluxDB
+influxd
+Terminal 3: Start Streamer
+PYTHONPATH=$PYTHONPATH:. python components/streamer.py
+Terminal 4: Start Ingester
+PYTHONPATH=$PYTHONPATH:. python components/ingester.py
+Terminal 5: Start Processor
+PYTHONPATH=$PYTHONPATH:. python components/processor.py
+Terminal 6: Start API
+PYTHONPATH=$PYTHONPATH:. python components/api.py
+
+
+## Component Overview
+- **Streamer**: Reads weather data and publishes to Redis
+- **Ingester**: Subscribes to Redis and writes to InfluxDB
+- **Processor**: Processes and analyzes weather data
+- **API**: Provides REST endpoints for data access
+
+
+## API Endpoints
+- Health Check: `GET /health`
+- State Weather: `GET /weather/state?hour={hour}&state={state}`
+- All States: `GET /weather/all?hour={hour}`
+
+
+## Monitoring
+Check application logs:
+
+
+## Troubleshooting
+1. **Redis Connection Issues**:
+   - Check if Redis is running: `redis-cli ping`
+   - Verify Redis port (default: 6379)
+2. **InfluxDB Issues**:
+   - Verify InfluxDB is running
+   - Check credentials in .env file
+3. **Component Crashes**:
+   - Check logs/logs.csv for error messages
+   - Verify all required services are running
+
+
+## Development
+1. Run tests
+2. Check code style
+
+
+## Contributing
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
